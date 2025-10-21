@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-API_KEY = "pub_34c6488db83f4f309fd36f0c7de989e6"
+API_KEY = "pub_84c3d6de6f2a4d489a97e6dd75af1894"
 BASE_URL = "https://newsdata.io/api/1/news"
 
 @app.route('/')
