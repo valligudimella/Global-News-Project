@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global News Hub - Latest World News & Headlines</title>
+<meta name="description" content="Stay informed with Global News Hub. Get the latest breaking news, headlines, and stories from around the world.">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #1a1a2e; }
+@media (prefers-color-scheme: dark) { body { background: #1a1a2e; color: #f8f9fa; } }
+header { background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); color: white; position: relative; overflow: hidden; text-align:center; padding: 60px 20px;}
+header h1 { font-size: 56px; font-weight: bold; margin-bottom: 16px; letter-spacing: -1px; }
+header p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+.news-container { max-width: 1280px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 24px; padding: 0 20px; }
+.news-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s ease; display:flex; flex-direction:column; }
+.news-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+.news-card img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
+.news-card:hover img { transform: scale(1.1); }
+.news-card-content { padding: 24px; flex-grow:1; display:flex; flex-direction:column; }
+.news-card h3 { font-size: 20px; font-weight: bold; margin-bottom: 12px; line-height:1.4; }
+.news-card p { font-size: 14px; line-height:1.6; color:#666; margin-bottom: 12px; flex-grow:1; }
+.news-card .meta { font-size:12px; color:#999; display:flex; gap:8px; align-items:center; }
+button { padding:10px 20px; border-radius:8px; border:none; font-size:14px; cursor:pointer; transition: all 0.2s; }
+.btn-primary { background:#0f3460; color:white; }
+.btn-primary:hover { background:#16213e; }
+.btn-ghost { background:transparent; color:#1a1a2e; border:1px solid #cbd5e0; }
+.btn-ghost:hover { background:#e8eef5; }
+@media (prefers-color-scheme: dark) {
+    .news-card { background:#252547; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+    .news-card:hover { box-shadow:0 12px 24px rgba(0,0,0,0.5); }
+    .btn-ghost { color:#f8f9fa; border-color:#4a5568; }
+    .btn-ghost:hover { background:#353565; }
+    footer { background:#252547; border-top-color:#4a5568; }
+}
+footer { border-top:1px solid #e0e0e0; padding:32px 20px; text-align:center; background:white; margin-top:60px; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Global News Hub</h1>
+<p>Stay informed with the latest news from around the world</p>
+</header>
+
+<div style="text-align:center; margin:20px 0;">
+<a href="/?category=top"><button class="{{ 'btn-primary' if category=='top' else 'btn-ghost' }}">Top Headlines</button></a>
+<a href="/?category=business"><button class="{{ 'btn-primary' if category=='business' else 'btn-ghost' }}">Business</button></a>
+<a href="/?category=technology"><button class="{{ 'btn-primary' if category=='technology' else 'btn-ghost' }}">Technology</button></a>
+<a href="/?category=sports"><button class="{{ 'btn-primary' if category=='sports' else 'btn-ghost' }}">Sports</button></a>
+<a href="/?category=entertainment"><button class="{{ 'btn-primary' if category=='entertainment' else 'btn-ghost' }}">Entertainment</button></a>
+<a href="/?category=health"><button class="{{ 'btn-primary' if category=='health' else 'btn-ghost' }}">Health</button></a>
+<a href="/?category=science"><button class="{{ 'btn-primary' if category=='science' else 'btn-ghost' }}">Science</button></a>
+</div>
+
+<div class="news-container">
+{% if articles %}
+    {% for article in articles %}
+    <div class="news-card">
+        {% if article.image_url %}
+        <img src="{{ article.image_url }}" alt="{{ article.title }}">
+        {% endif %}
+        <div class="news-card-content">
+            <h3>{{ article.title }}</h3>
+            {% if article.description %}<p>{{ article.description }}</p>{% endif %}
+            <div class="meta">
+                <span>{{ article.source_id }}</span>
+                <span>{{ article.pubDate[:10] }}</span>
+            </div>
+            <a href="{{ article.link }}" target="_blank" style="margin-top:10px; color:#0f3460; text-decoration:underline;">Read More</a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align:center; width:100%;">No articles available. Please try another category or refresh the page.</p>
+{% endif %}
+</div>
+
+<footer>
+<p>© 2025 Global News Hub. Powered by NewsData.io</p>
+</footer>
+
+</body>
+</html>
